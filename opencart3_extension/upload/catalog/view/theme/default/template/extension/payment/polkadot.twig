@@ -1,0 +1,47 @@
+<div id='polkadot_work'>"Loading engine... If you see this message long enough to read to the end, something has gone wrong.</div>
+
+<form id='form-polkadot' onsubmit='return DOT.opencart3_submit()' method="post">
+<input type='hidden' name='language' value="{{ language }}" />
+<input type='hidden' name='order_id' value='{{ datas_order_id }}'>
+<input type='hidden' name='total' value='{{ datas_total }}'>
+<input type='hidden' name='wss' value='{{ datas_wss }}'>
+<input type='hidden' name='ajax_url' value='{{ ajax_url }}'>
+<input type='hidden' name='currency' value='{{ datas_currency }}'>
+<input type='hidden' name='merchant' value='{{ datas_merchant }}'>
+<input type='hidden' name='success_callback' value='{{ datas_success_callback }}'>
+<input type='hidden' name='cancel_callback' value='{{ datas_cancel_callback }}'>
+<input type='hidden' name='server' value='{{ constant('HTTP_SERVER') }}'>
+<div class="buttons">
+    <div class="pull-right">
+      <input type="submit" id="button-confirm" value="{{ button_confirm }}" class="btn btn-primary" />
+    </div>
+</div>
+</form>
+
+<input type="button" value="reload" onclick="LLOADS.LOADES={};wallet_start();" />
+
+<script>
+    var s=document.createElement('script');
+    s.type='text/javascript';
+    s.src="{{ constant('HTTP_SERVER') }}catalog/view/javascript/polkadot/DOT.js"
+            + '?random='+Math.random() // DEBUG ONLY!
+    ;
+    s.onerror=function(e){ alert('DOT plugin: script not found: '+e.src) };
+    s.onload=function(e) {
+        DOT.opencart3_init({
+	    order: "{{ datas_order }}",
+	    total: "{{ datas_total }}",
+	    currency: "{{ datas_currency }}",
+	    currences: "{{ datas_currences }}",
+	    ajax_url: "{{ ajax_url }}",
+	    wpath: "{{ constant('HTTP_SERVER') }}",
+	    language: "{{ language }}",
+	    success_callback: "{{ datas_success_callback }}",
+	    cancel_callback: "{{ datas_cancel_callback }}",
+	    class_ok: "alert text-success",
+	    class_warning: "lleotest alert alert-danger",
+        });
+    };
+    document.getElementsByTagName('head').item(0).appendChild(s);
+    $('#button-confirm').on('click',function(e){ e.preventDefault(); return DOT.opencart3_submit(); });
+</script>
